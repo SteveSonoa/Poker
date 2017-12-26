@@ -63,6 +63,11 @@ function dealCards() {
 	console.log(p3Hand);
 	console.log(p4Hand);
 	console.log(deck);
+
+	drawMyHand();
+	drawOpponent("p2");
+	drawOpponent("p3");
+	drawOpponent("p4");	
 }
 
 function addCardToHand(thisHand) {
@@ -80,4 +85,42 @@ function addCardToHand(thisHand) {
 	deck.splice(cardNum, 1);
 	// Give the hand to the assigned player
 	return thisHand;
+}
+
+// thisPlayer is a REQUIRED parameter.
+function drawOpponent(thisPlayer) {
+	console.log("running drawOpponent function for " + thisPlayer);
+	// Load the correct hand into the function
+	if(thisPlayer === "p2") {
+		var thisHand = p2Hand;
+	}
+	else if(thisPlayer === "p3") {
+		var thisHand = p3Hand;
+	}
+	else if(thisPlayer === "p4") {
+		var thisHand = p4Hand;
+	}
+	// Return an error if the function is called without passing a parameter.
+	else {
+		console.log("ERROR: drawOpponents was called without passing a parameter.")
+		return null;
+	}
+
+	$("#" + thisPlayer).html(
+		'<div class="container-float">'
+	+		'<div class="row">'
+	+			'<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">'
+	+				'<img src="assets/images/' + thisHand[0].val + thisHand[0].suit + '.png" class ="img img-responsive">'
+	+			'</div>'
+	+			'<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">'
+	+				'<img src="assets/images/' + thisHand[1].val + thisHand[1].suit + '.png" class ="img img-responsive">'
+	+			'</div>'
+	+		'</div>'
+	+	'</div>'
+	);
+}
+
+function drawMyHand() {
+	$("#card1").html('<img src="assets/images/' + p1Hand[0].val + p1Hand[0].suit + '.png" class ="img img-responsive">');
+	$("#card2").html('<img src="assets/images/' + p1Hand[1].val + p1Hand[1].suit + '.png" class ="img img-responsive">');
 }
