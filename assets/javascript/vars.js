@@ -1,4 +1,5 @@
 var deck = [];
+var tableCards = [];
 var p1Hand = [];
 var p2Hand = [];
 var p3Hand = [];
