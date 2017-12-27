@@ -628,6 +628,7 @@ function handResult(thisHand) {
 	var numPairs = 0;
 	var highPair = 0;
 	var lowPair = 0;
+	var tpHighCard = 0;
 
 	// Checks to see if cards 6 and 5 are the same
 	if(allCards[6].val === allCards[5].val) {
@@ -650,7 +651,7 @@ function handResult(thisHand) {
 			highPair = allCards[4].val;
 		}
 		// If there already is a highPair, store this as the lowPair
-		else if(numPairs > 1) {
+		else if(numPairs === 2) {
 			lowPair = allCards[4].val;
 		}
 	}
@@ -659,7 +660,7 @@ function handResult(thisHand) {
 		if(numPairs === 1) {
 			highPair = allCards[3].val;
 		}
-		else if(numPairs > 1) {
+		else if(numPairs === 2) {
 			lowPair = allCards[3].val;
 		}
 	}
@@ -668,21 +669,30 @@ function handResult(thisHand) {
 		if(numPairs === 1) {
 			highPair = allCards[2].val;
 		}
-		else if(numPairs > 1) {
+		else if(numPairs === 2) {
 			lowPair = allCards[2].val;
 		}
 	}
 	if(allCards[1].val === allCards[0].val) {
 		numPairs++;
 		// If this final check is the first pair, we don't want to store anything, because it's not 2 Pair.
-		if(numPairs > 1) {
+		if(numPairs === 2) {
 			lowPair = allCards[1].val;
 		}
 	}
 
+	// Only run this if we find more than 1 pair.
 	if(numPairs > 1) {
+		// Determine the highest card that isn't part of the 2 pair
+		if(tpHighCard === 0 && allCards[6].val !== highPair && allCards[6].val !== lowPair) { tpHighCard = allCards[6].val; }
+		if(tpHighCard === 0 && allCards[5].val !== highPair && allCards[5].val !== lowPair) { tpHighCard = allCards[5].val; }
+		if(tpHighCard === 0 && allCards[4].val !== highPair && allCards[4].val !== lowPair) { tpHighCard = allCards[4].val; }
+		if(tpHighCard === 0 && allCards[3].val !== highPair && allCards[3].val !== lowPair) { tpHighCard = allCards[3].val; }
+		if(tpHighCard === 0 && allCards[2].val !== highPair && allCards[2].val !== lowPair) { tpHighCard = allCards[2].val; }
+		if(tpHighCard === 0 && allCards[1].val !== highPair && allCards[1].val !== lowPair) { tpHighCard = allCards[1].val; }
+		if(tpHighCard === 0 && allCards[0].val !== highPair && allCards[0].val !== lowPair) { tpHighCard = allCards[0].val; }
 		console.log(allCards);
-		return [3, highPair, lowPair];
+		return [3, highPair, lowPair, tpHighCard];
 	}
 
 	// *******************************************************************************
