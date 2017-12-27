@@ -62,6 +62,11 @@ function dealCards() {
 		}
 	}
 
+	// TEST Force the most difficult to reach hands
+	dealRoyalFlush();
+	// dealStraightFlush();
+	// deal4Kind();
+
 	// TEST Draw each player's hand to the screen. These will be visible.
 	drawMyHand();
 	drawOpponent("p2");
@@ -72,11 +77,6 @@ function dealCards() {
 	// flop();
 	// turn();
 	// river();
-
-	// TEST Force the most difficult to reach hands
-	dealRoyalFlush();
-	// dealStraightFlush();
-	// deal4Kind();
 
 	// TEST Check to verify the dealt cards have been removed from the deck.
 	console.log(deck);
@@ -206,7 +206,7 @@ function dealRoyalFlush() {
 	tableCards.splice(0, tableCards.length);
 
 	// Deal a Royal Flush
-	for (var i = 9; i <= 13; i++) {
+	for (var i = 11; i >= 7; i--) {
 		var rndCard = deck[i];
 		tableCards.push(rndCard);
 		deck.splice(i, 1);
@@ -225,7 +225,7 @@ function dealStraightFlush() {
 	tableCards.splice(0, tableCards.length);
 
 	// Deal a King High Straight Flush
-	for (var i = 8; i <= 12; i++) {
+	for (var i = 10; i >= 6; i--) {
 		var rndCard = deck[i];
 		tableCards.push(rndCard);
 		deck.splice(i, 1);
@@ -244,11 +244,11 @@ function deal4Kind() {
 	tableCards.splice(0, tableCards.length);
 
 	// Deal 4 of a Kind
-	tableCards.push(deck[13], deck[26], deck[39], deck[52]);
-	deck.splice(52, 1);
+	tableCards.push(deck[0], deck[13], deck[26], deck[39]);
 	deck.splice(39, 1);
 	deck.splice(26, 1);
 	deck.splice(13, 1);
+	deck.splice(0, 1);
 
 	//Display the cards on the table
 	$("#card1").html('<img src="assets/images/' + tableCards[0].val + tableCards[0].suit + '.png" class ="img img-responsive">');
