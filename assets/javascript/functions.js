@@ -207,7 +207,7 @@ function handResult(thisHand) {
 	var hearts = 0, diamonds = 0, clubs = 0, spades = 0;
 
 	// Create an array of 7 cards, including the table cards and the player's hold cards
-	var allCards = [tableCards[0], tableCards[1], tableCards[2], tableCards[3], tableCards[4];
+	var allCards = [tableCards[0], tableCards[1], tableCards[2], tableCards[3], tableCards[4]];
 	allCards.push(thisHand[0], thisHand[1]);
 
 	// *******************************************************************************
