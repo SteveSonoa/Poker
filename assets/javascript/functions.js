@@ -88,8 +88,6 @@ function dealCards() {
 	console.log("=====================");
 	console.log("Player 4:");
 	console.log(handResult(p4Hand));
-	console.log("=====================");
-	console.log("tableCards: " + tableCards);
 }
 
 // Takes 2 cards out of the deck and adds them to the player's hand. Pass the array of the player's hole cards.
@@ -345,7 +343,8 @@ function handResult(thisHand) {
 		&& allCards[5].val === allCards[6].val
 	) {
 		console.log(allCards);
-		return [8, allCards[3].val];
+		// Beyond the 4 of a kind (cards 3, 4, 5, and 6), the High Card will be card 2
+		return [8, allCards[6].val, allCards[2].val];
 	}
 	// Check to see if cards 2, 3, 4, and 5 have the same value.
 	else if(
@@ -354,7 +353,8 @@ function handResult(thisHand) {
 		&& allCards[4].val === allCards[5].val
 	) {
 		console.log(allCards);
-		return [8, allCards[4].val];
+		// Beyond the 4 of a kind (cards 2, 3, 4, and 5), the High Card will be card 6
+		return [8, allCards[5].val, allCards[6].val];
 	}
 	// Check to see if cards 1, 2, 3, and 4 have the same value.
 	else if(
@@ -363,7 +363,7 @@ function handResult(thisHand) {
 		&& allCards[3].val === allCards[4].val
 	) {
 		console.log(allCards);
-		return [8, allCards[5].val];
+		return [8, allCards[4].val, allCards[6].val];
 	}
 	// Check to see if cards 0, 1, 2, and 3 have the same value.
 	else if(
@@ -372,7 +372,7 @@ function handResult(thisHand) {
 		&& allCards[2].val === allCards[3].val
 	) {
 		console.log(allCards);
-		return [8, allCards[6].val];
+		return [8, allCards[3].val, allCards[6].val];
 	}
 
 
@@ -449,6 +449,11 @@ function handResult(thisHand) {
 	clubs = 0;
 	spades = 0;
 
+	// Sort cards by value
+	allCards.sort(function (a, b) {
+	  return a.val - b.val;
+	});
+
 	// Sort allCards by suit
 	allCards.sort(function(a, b) {
 		var suitA = a.suit;
@@ -472,7 +477,7 @@ function handResult(thisHand) {
 		&& allCards[3].suit === allCards[2].suit
 	) {
 		console.log(allCards);
-		return [6, allCards[6].val];
+		return [6, allCards[6].val, allCards[5].val, allCards[4].val, allCards[3].val, allCards[2].val];
 	}
 	// Check to see if cards 5, 4, 3, 2, and 1 have the same suit
 	else if(
@@ -482,7 +487,7 @@ function handResult(thisHand) {
 		&& allCards[2].suit === allCards[1].suit
 	) {
 		console.log(allCards);
-		return [6, allCards[5].val];
+		return [6, allCards[5].val, allCards[4].val, allCards[3].val, allCards[2].val, allCards[1].val];
 	}
 	// Check to see if cards 4, 3, 2, 1, and 0 have the same suit
 	else if(
@@ -492,7 +497,7 @@ function handResult(thisHand) {
 		&& allCards[1].suit === allCards[0].suit
 	) {
 		console.log(allCards);
-		return [6, allCards[4].val];
+		return [6, allCards[4].val, allCards[3].val, allCards[2].val, allCards[1].val, allCards[0].val];
 	}
 
 	// *******************************************************************************
@@ -583,23 +588,23 @@ function handResult(thisHand) {
 	// Checks to see if cards 6, 5, and 4 have the same value
 	if(allCards[6].val === allCards[5].val && allCards[5].val === allCards[4].val) {
 		console.log(allCards);
-		return [4, allCards[6].val];
+		return [4, allCards[6].val, allCards[3].val, allCards[2].val];
 	}
 	else if(allCards[5].val === allCards[4].val && allCards[4].val === allCards[3].val) {
 		console.log(allCards);
-		return [4, allCards[5].val];
+		return [4, allCards[5].val, allCards[6].val, allCards[2].val];
 	}
 	else if(allCards[4].val === allCards[3].val && allCards[3].val === allCards[2].val) {
 		console.log(allCards);
-		return [4, allCards[4].val];
+		return [4, allCards[4].val, allCards[6].val, allCards[5].val];
 	}
 	else if(allCards[3].val === allCards[2].val && allCards[2].val === allCards[1].val) {
 		console.log(allCards);
-		return [4, allCards[3].val];
+		return [4, allCards[3].val, allCards[6].val, allCards[5].val];
 	}
 	else if(allCards[2].val === allCards[1].val && allCards[1].val === allCards[0].val) {
 		console.log(allCards);
-		return [4, allCards[2].val];
+		return [4, allCards[2].val, allCards[6].val, allCards[5].val];
 	}
 
 	// *******************************************************************************
@@ -698,27 +703,27 @@ function handResult(thisHand) {
 	// Checks to see if cards 6 & 5 have the same value.
 	if(allCards[6].val === allCards[5].val) {
 		console.log(allCards);
-		return [2, allCards[6].val];
+		return [2, allCards[6].val, allCards[4].val, allCards[3].val, allCards[2].val];
 	}
 	else if(allCards[5].val === allCards[4].val) {
 		console.log(allCards);
-		return [2, allCards[5].val];
+		return [2, allCards[5].val, allCards[6].val, allCards[3].val, allCards[2].val];
 	}
 	else if(allCards[4].val === allCards[3].val) {
 		console.log(allCards);
-		return [2, allCards[4].val];
+		return [2, allCards[4].val, allCards[6].val, allCards[5].val, allCards[2].val];
 	}
 	else if(allCards[3].val === allCards[2].val) {
 		console.log(allCards);
-		return [2, allCards[3].val];
+		return [2, allCards[3].val, allCards[6].val, allCards[5].val, allCards[4].val];
 	}
 	else if(allCards[2].val === allCards[1].val) {
 		console.log(allCards);
-		return [2, allCards[2].val];
+		return [2, allCards[2].val, allCards[6].val, allCards[5].val, allCards[4].val];
 	}
 	else if(allCards[1].val === allCards[0].val) {
 		console.log(allCards);
-		return [2, allCards[1].val];
+		return [2, allCards[1].val, allCards[6].val, allCards[5].val, allCards[4].val];
 	}
 
 	// *******************************************************************************
@@ -739,7 +744,7 @@ function handResult(thisHand) {
 
 	// Returns the high card value
 	console.log(allCards);
-	return [1, allCards[6].val];
+	return [1, allCards[6].val, allCards[5].val, allCards[4].val, allCards[3].val, allCards[2].val];
 }
 
 
