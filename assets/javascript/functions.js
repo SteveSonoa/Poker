@@ -69,9 +69,14 @@ function dealCards() {
 	drawOpponent("p4");	
 
 	// TEST Draw the table cards all at once.
-	flop();
-	turn();
-	river();
+	// flop();
+	// turn();
+	// river();
+
+	// TEST Force the most difficult to reach hands
+	dealRoyalFlush();
+	// dealStraightFlush();
+	// deal4Kind();
 
 	// TEST Check to verify the dealt cards have been removed from the deck.
 	console.log(deck);
@@ -194,6 +199,64 @@ function river() {
 
 	//Display the card on the table
 	$("#card5").html('<img src="assets/images/' + tableCards[4].val + tableCards[4].suit + '.png" class ="img img-responsive">');
+}
+
+function dealRoyalFlush() {
+	// Delete any table cards that might exist
+	tableCards.splice(0, tableCards.length);
+
+	// Deal a Royal Flush
+	for (var i = 9; i <= 13; i++) {
+		var rndCard = deck[i];
+		tableCards.push(rndCard);
+		deck.splice(i, 1);
+	}
+
+	//Display the cards on the table
+	$("#card1").html('<img src="assets/images/' + tableCards[0].val + tableCards[0].suit + '.png" class ="img img-responsive">');
+	$("#card2").html('<img src="assets/images/' + tableCards[1].val + tableCards[1].suit + '.png" class ="img img-responsive">');
+	$("#card3").html('<img src="assets/images/' + tableCards[2].val + tableCards[2].suit + '.png" class ="img img-responsive">');	
+	$("#card4").html('<img src="assets/images/' + tableCards[3].val + tableCards[3].suit + '.png" class ="img img-responsive">');
+	$("#card5").html('<img src="assets/images/' + tableCards[4].val + tableCards[4].suit + '.png" class ="img img-responsive">');	
+}
+
+function dealStraightFlush() {
+	// Delete any table cards that might exist
+	tableCards.splice(0, tableCards.length);
+
+	// Deal a King High Straight Flush
+	for (var i = 8; i <= 12; i++) {
+		var rndCard = deck[i];
+		tableCards.push(rndCard);
+		deck.splice(i, 1);
+	}
+
+	//Display the cards on the table
+	$("#card1").html('<img src="assets/images/' + tableCards[0].val + tableCards[0].suit + '.png" class ="img img-responsive">');
+	$("#card2").html('<img src="assets/images/' + tableCards[1].val + tableCards[1].suit + '.png" class ="img img-responsive">');
+	$("#card3").html('<img src="assets/images/' + tableCards[2].val + tableCards[2].suit + '.png" class ="img img-responsive">');	
+	$("#card4").html('<img src="assets/images/' + tableCards[3].val + tableCards[3].suit + '.png" class ="img img-responsive">');
+	$("#card5").html('<img src="assets/images/' + tableCards[4].val + tableCards[4].suit + '.png" class ="img img-responsive">');	
+}
+
+function deal4Kind() {
+	// Delete any table cards that might exist
+	tableCards.splice(0, tableCards.length);
+
+	// Deal 4 of a Kind
+	tableCards.push(deck[13], deck[26], deck[39], deck[52]);
+	deck.splice(52, 1);
+	deck.splice(39, 1);
+	deck.splice(26, 1);
+	deck.splice(13, 1);
+
+	//Display the cards on the table
+	$("#card1").html('<img src="assets/images/' + tableCards[0].val + tableCards[0].suit + '.png" class ="img img-responsive">');
+	$("#card2").html('<img src="assets/images/' + tableCards[1].val + tableCards[1].suit + '.png" class ="img img-responsive">');
+	$("#card3").html('<img src="assets/images/' + tableCards[2].val + tableCards[2].suit + '.png" class ="img img-responsive">');	
+	$("#card4").html('<img src="assets/images/' + tableCards[3].val + tableCards[3].suit + '.png" class ="img img-responsive">');
+
+	river();
 }
 
 // This function will return an array with the [HAND CODE, (PARAM1), (PARAM2), (PARAM3), (PARAM4), (PARAM5)].
