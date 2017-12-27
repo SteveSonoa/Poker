@@ -39,6 +39,11 @@ function createCards(suit) {
 
 // Deals 2 hole cards to each player, both PC and human.
 function dealCards() {
+	// TEST Force the most difficult to reach hands
+	// dealRoyalFlush();
+	// dealStraightFlush();
+	// deal4Kind();
+
 	if (numPlayers > 1) {
 		// Always deal 2 cards to player 1
 		for (var i = 0; i < 2; i++) {
@@ -62,11 +67,6 @@ function dealCards() {
 		}
 	}
 
-	// TEST Force the most difficult to reach hands
-	dealRoyalFlush();
-	// dealStraightFlush();
-	// deal4Kind();
-
 	// TEST Draw each player's hand to the screen. These will be visible.
 	drawMyHand();
 	drawOpponent("p2");
@@ -74,9 +74,9 @@ function dealCards() {
 	drawOpponent("p4");	
 
 	// TEST Draw the table cards all at once.
-	// flop();
-	// turn();
-	// river();
+	flop();
+	turn();
+	river();
 
 	// TEST Check to verify the dealt cards have been removed from the deck.
 	console.log(deck);
@@ -206,7 +206,7 @@ function dealRoyalFlush() {
 	tableCards.splice(0, tableCards.length);
 
 	// Deal a Royal Flush
-	for (var i = 11; i >= 7; i--) {
+	for (var i = 12; i >= 8; i--) {
 		var rndCard = deck[i];
 		tableCards.push(rndCard);
 		deck.splice(i, 1);
@@ -225,7 +225,7 @@ function dealStraightFlush() {
 	tableCards.splice(0, tableCards.length);
 
 	// Deal a King High Straight Flush
-	for (var i = 10; i >= 6; i--) {
+	for (var i = 11; i >= 7; i--) {
 		var rndCard = deck[i];
 		tableCards.push(rndCard);
 		deck.splice(i, 1);
