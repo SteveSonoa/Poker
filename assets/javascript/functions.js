@@ -1,3 +1,4 @@
+// Shuffle the deck(s).
 function createDeck(numDecks) {
 	if(!numDecks) {
 		// numDecks is an optional parameter
@@ -17,6 +18,7 @@ function createDeck(numDecks) {
 	}
 }
 
+// Create a suit of card objects, values 2 - 14.
 function createCards(suit) {
 	// suit is a required parameter
 	if(!suit) {
@@ -35,6 +37,7 @@ function createCards(suit) {
 	}
 }
 
+// Deals 2 hole cards to each player, both PC and human.
 function dealCards() {
 	if (numPlayers > 1) {
 		// Always deal 2 cards to player 1
@@ -59,20 +62,26 @@ function dealCards() {
 		}
 	}
 
+	// TEST Draw each player's hand to the screen. These will be visible.
 	drawMyHand();
 	drawOpponent("p2");
 	drawOpponent("p3");
 	drawOpponent("p4");	
 
+	// TEST Draw the table cards all at once.
 	flop();
 	turn();
 	river();
+
+	// TEST Check to verify the dealt cards have been removed from the deck.
 	console.log(deck);
 
+	// TEST Check to see what the player's resulting hand will return.
 	console.log(handResult(p1Hand));
 
 }
 
+// Takes 2 cards out of the deck and adds them to the player's hand. Pass the array of the player's hole cards.
 function addCardToHand(thisHand) {
 	// thisHand is a required parameter
 	if(!thisHand) {
@@ -90,7 +99,7 @@ function addCardToHand(thisHand) {
 	return thisHand;
 }
 
-// thisPlayer is a REQUIRED parameter.
+// thisPlayer is a REQUIRED parameter. Displays the opponent's cards on the screen. They are not hidden.
 function drawOpponent(thisPlayer) {
 	// Load the correct hand into the function
 	if(thisPlayer === "p2") {
@@ -122,11 +131,13 @@ function drawOpponent(thisPlayer) {
 	);
 }
 
+// Draws the user's hand to the screen. These cards are visible.
 function drawMyHand() {
 	$("#pcard1").html('<img src="assets/images/' + p1Hand[0].val + p1Hand[0].suit + '.png" class ="img img-responsive">');
 	$("#pcard2").html('<img src="assets/images/' + p1Hand[1].val + p1Hand[1].suit + '.png" class ="img img-responsive">');
 }
 
+// Takes 3 cards out of the deck and adds them to the tableCards array. Draws the cards to the page.
 function flop() {
 	// Delete any table cards that might exist
 	tableCards.splice(0, tableCards.length);
@@ -148,6 +159,7 @@ function flop() {
 	$("#card3").html('<img src="assets/images/' + tableCards[2].val + tableCards[2].suit + '.png" class ="img img-responsive">');
 }
 
+// Takes 1 card out of the deck and adds it to the tableCards array. Draws the card to the page.
 function turn() {
 	// Select a random card from the deck
 	var cardNum = Math.floor(Math.random() * deck.length);
@@ -161,6 +173,7 @@ function turn() {
 	$("#card4").html('<img src="assets/images/' + tableCards[3].val + tableCards[3].suit + '.png" class ="img img-responsive">');
 }
 
+// Takes 1 card out of the deck and adds it to the tableCards array. Draws the card to the page.
 function river() {
 	// Select a random card from the deck
 	var cardNum = Math.floor(Math.random() * deck.length);
@@ -242,6 +255,12 @@ function handResult(thisHand) {
 	clubs = 0;
 	spades = 0;
 
+	// Cards must be sorted by value, then by suit. The resulting order is the cards in ascending order by their suit.
+	// Sort cards by value
+	allCards.sort(function (a, b) {
+	  return a.val - b.val;
+	});
+
 	// Sort allCards by suit
 	allCards.sort(function(a, b) {
 		var suitA = a.suit;
@@ -252,21 +271,22 @@ function handResult(thisHand) {
 		if (suitA > suitB) {
 			return 1;
 		}
-
 		// suits must be equal
 		return 0;
 	});
 
+	// Card #6 will always be highest; check to see if there are 5 in a row
 	if(
 		allCards[2].val === allCards[3].val - 1
 		&& allCards[3].val === allCards[4].val - 1
 		&& allCards[4].val === allCards[5].val - 1
 		// Include a check for Aces as low
 		&& (allCards[5].val === allCards[6].val - 1  || allCards[6].val === allCards[2].val + 12)
+		// If there are 5 in a row, make sure they are the same suit
 		&& allCards[2].suit === allCards[6].suit
 	) {
 		console.log(allCards);
-		return [9, allCards[4].val];
+		return [9, allCards[6].val];
 	}
 	else if (
 		allCards[1].val === allCards[2].val - 1
@@ -288,7 +308,7 @@ function handResult(thisHand) {
 		&& allCards[0].suit === allCards[4].suit
 	) {
 		console.log(allCards);
-		return [9, allCards[6].val];
+		return [9, allCards[4].val];
 	}
 
 	// *******************************************************************************
@@ -307,34 +327,38 @@ function handResult(thisHand) {
 	  return a.val - b.val;
 	});
 
+	// Check to see if cards 3, 4, 5, and 6 have the same value.
 	if(
-		allCards[0].val === allCards[1].val
-		&& allCards[1].val === allCards[2].val
-		&& allCards[2].val === allCards[3].val
+		allCards[3].val === allCards[4].val
+		&& allCards[4].val === allCards[5].val
+		&& allCards[5].val === allCards[6].val
 	) {
 		console.log(allCards);
 		return [8, allCards[3].val];
 	}
-	else if(
-		allCards[1].val === allCards[2].val
-		&& allCards[2].val === allCards[3].val
-		&& allCards[3].val === allCards[4].val
-	) {
-		console.log(allCards);
-		return [8, allCards[4].val];
-	}
+	// Check to see if cards 2, 3, 4, and 5 have the same value.
 	else if(
 		allCards[2].val === allCards[3].val
 		&& allCards[3].val === allCards[4].val
 		&& allCards[4].val === allCards[5].val
 	) {
 		console.log(allCards);
+		return [8, allCards[4].val];
+	}
+	// Check to see if cards 1, 2, 3, and 4 have the same value.
+	else if(
+		allCards[1].val === allCards[2].val
+		&& allCards[2].val === allCards[3].val
+		&& allCards[3].val === allCards[4].val
+	) {
+		console.log(allCards);
 		return [8, allCards[5].val];
 	}
+	// Check to see if cards 0, 1, 2, and 3 have the same value.
 	else if(
-		allCards[3].val === allCards[4].val
-		&& allCards[4].val === allCards[5].val
-		&& allCards[5].val === allCards[6].val
+		allCards[0].val === allCards[1].val
+		&& allCards[1].val === allCards[2].val
+		&& allCards[2].val === allCards[3].val
 	) {
 		console.log(allCards);
 		return [8, allCards[6].val];
@@ -352,6 +376,52 @@ function handResult(thisHand) {
 	clubs = 0;
 	spades = 0;
 
+	var fh3Kind = 0;
+	var fhPair = 0;
+
+	// Sort cards by value
+	allCards.sort(function (a, b) {
+	  return a.val - b.val;
+	});
+
+	// First check for 3 of a Kind & store the val
+	if(allCards[6].val === allCards[5].val && allCards[5].val === allCards[4].val) {
+		fh3Kind = allCards[6].val;
+	}
+	else if(allCards[5].val === allCards[4].val && allCards[4].val === allCards[3].val) {
+		fh3Kind = allCards[5].val;
+	}
+	else if(allCards[4].val === allCards[3].val && allCards[3].val === allCards[2].val) {
+		fh3Kind = allCards[4].val;
+	}
+	else if(allCards[3].val === allCards[2].val && allCards[2].val === allCards[1].val) {
+		fh3Kind = allCards[3].val;
+	}
+	else if(allCards[2].val === allCards[1].val && allCards[1].val === allCards[0].val) {
+		fh3Kind = allCards[2].val;
+	}
+
+	// If there is a 3 of a Kind, check for the Pair & store the value. The Pair cannot be the same value as the 3 of a Kind.
+	if(fh3Kind !== 0) {
+		if(allCards[6].val === allCards[5].val && allCards[6].val !== fh3Kind) {
+			fhPair = allCards[6].val;
+		}
+		else if(allCards[5].val === allCards[4].val && allCards[5].val !== fh3Kind) {
+			fhPair = allCards[5].val;
+		}
+		else if(allCards[4].val === allCards[3].val && allCards[4].val !== fh3Kind) {
+			fhPair = allCards[4].val;
+		}
+		else if(allCards[3].val === allCards[2].val && allCards[3].val !== fh3Kind) {
+			fhPair = allCards[3].val;
+		}
+		else if(allCards[2].val === allCards[1].val && allCards[2].val !== fh3Kind) {
+			fhPair = allCards[2].val;
+		}
+		else if(allCards[1].val === allCards[0].val && allCards[1].val !== fh3Kind) {
+			fhPair = allCards[1].val;
+		}
+	}
 
 	// *******************************************************************************
 	// ********************************* FLUSH CHECK *********************************
@@ -379,6 +449,7 @@ function handResult(thisHand) {
 		return 0;
 	});
 
+	// Check to see if cards 6, 5, 4, 3, and 2 have the same suit
 	if(
 		allCards[6].suit === allCards[5].suit
 		&& allCards[5].suit === allCards[4].suit
@@ -388,6 +459,7 @@ function handResult(thisHand) {
 		console.log(allCards);
 		return [6, allCards[6].val];
 	}
+	// Check to see if cards 5, 4, 3, 2, and 1 have the same suit
 	else if(
 		allCards[5].suit === allCards[4].suit
 		&& allCards[4].suit === allCards[3].suit
@@ -397,6 +469,7 @@ function handResult(thisHand) {
 		console.log(allCards);
 		return [6, allCards[5].val];
 	}
+	// Check to see if cards 4, 3, 2, 1, and 0 have the same suit
 	else if(
 		allCards[4].suit === allCards[3].suit
 		&& allCards[3].suit === allCards[2].suit
@@ -429,6 +502,7 @@ function handResult(thisHand) {
 	var tmpStraightArray = [allCards[0].val, allCards[1].val, allCards[2].val, allCards[3].val, allCards[4].val, allCards[5].val, allCards[6].val];
 	var straightArray = [];
 
+	// straightArray does not include any duplicate values. We will check it for the straight.
 	$.each(tmpStraightArray, function(i, el){
 		if($.inArray(el, straightArray) === -1) straightArray.push(el);
 	});
@@ -436,7 +510,9 @@ function handResult(thisHand) {
 	console.log(straightArray);
 
 	if(
+		// Make sure the array is long enough for this check
 		straightArray.length > 4
+		// Check if cards 2, 3, 4, 5, and 6 are 1 value away from each other
 		&& straightArray[2] === straightArray[3] - 1
 		&& straightArray[3] === straightArray[4] - 1
 		&& straightArray[4] === straightArray[5] - 1
@@ -444,10 +520,12 @@ function handResult(thisHand) {
 		&& (straightArray[5] === straightArray[6] - 1  || straightArray[6] === straightArray[2] + 12)
 	) {
 		console.log(allCards);
-		return [5, straightArray[4]];
+		return [5, straightArray[6]];
 	}
 	else if (
+		// Make sure the array is long enough for this check
 		straightArray.length > 5
+		// Check if cards 1, 2, 3, 4, and 5 are 1 value away from each other
 		&& straightArray[1] === straightArray[2] - 1
 		&& straightArray[2] === straightArray[3] - 1
 		&& straightArray[3] === straightArray[4] - 1
@@ -458,7 +536,9 @@ function handResult(thisHand) {
 		return [5, straightArray[5]];
 	}
 	else if (
+		// Make sure the array is long enough for this check
 		straightArray.length > 6
+		// Check if cards 0, 1, 2, 3, and 4 are 1 value away from each other
 		&& straightArray[0] === straightArray[1] - 1
 		&& straightArray[1] === straightArray[2] - 1
 		&& straightArray[2] === straightArray[3] - 1
@@ -466,7 +546,7 @@ function handResult(thisHand) {
 		&& (straightArray[3] === straightArray[4] - 1  || straightArray[4] === straightArray[0] + 12)
 	) {
 		console.log(allCards);
-		return [5, straightArray[6]];
+		return [5, straightArray[4]];
 	}
 
 	// *******************************************************************************
@@ -485,6 +565,7 @@ function handResult(thisHand) {
 	  return a.val - b.val;
 	});
 
+	// Checks to see if cards 6, 5, and 4 have the same value
 	if(allCards[6].val === allCards[5].val && allCards[5].val === allCards[4].val) {
 		console.log(allCards);
 		return [4, allCards[6].val];
@@ -522,28 +603,32 @@ function handResult(thisHand) {
 	  return a.val - b.val;
 	});
 
+	// Keeps track of the number of pairs and the value of each pair
 	var numPairs = 0;
 	var highPair = 0;
 	var lowPair = 0;
 
+	// Checks to see if cards 6 and 5 are the same
 	if(allCards[6].val === allCards[5].val) {
+		// Increase the number of pairs by 1. The highest numPairs can be at this point is 1.
 		numPairs++;
+		// Store the high card
 		highPair = allCards[6].val;
 	}
 	if(allCards[5].val === allCards[4].val) {
+		// Increase the number of pairs by 1. The highest numPairs can be is still 1; if both applied, we would have ended at 3 of a Kind already.
 		numPairs++;
-		if(numPairs === 1) {
-			highPair = allCards[5].val;
-		}
-		else if(numPairs > 1) {
-			lowPair = allCards[5].val;
-		}
+		// Store the high card
+		highPair = allCards[5].val;
 	}
 	if(allCards[4].val === allCards[3].val) {
+		// Increase the number of pairs by 1. The highest numPairs can be is now 2.
 		numPairs++;
+		// If this was the first pair, store it as the highPair.
 		if(numPairs === 1) {
 			highPair = allCards[4].val;
 		}
+		// If there already is a highPair, store this as the lowPair
 		else if(numPairs > 1) {
 			lowPair = allCards[4].val;
 		}
@@ -568,6 +653,7 @@ function handResult(thisHand) {
 	}
 	if(allCards[1].val === allCards[0].val) {
 		numPairs++;
+		// If this final check is the first pair, we don't want to store anything, because it's not 2 Pair.
 		if(numPairs > 1) {
 			lowPair = allCards[1].val;
 		}
@@ -594,6 +680,7 @@ function handResult(thisHand) {
 	  return a.val - b.val;
 	});
 
+	// Checks to see if cards 6 & 5 have the same value.
 	if(allCards[6].val === allCards[5].val) {
 		console.log(allCards);
 		return [2, allCards[6].val];
@@ -635,6 +722,7 @@ function handResult(thisHand) {
 	  return a.val - b.val;
 	});
 
+	// Returns the high card value
 	console.log(allCards);
 	return [1, allCards[6].val];
 }
