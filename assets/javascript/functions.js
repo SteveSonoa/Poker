@@ -77,8 +77,19 @@ function dealCards() {
 	console.log(deck);
 
 	// TEST Check to see what the player's resulting hand will return.
+	console.log("Player 1:");
 	console.log(handResult(p1Hand));
-
+	console.log("=====================");
+	console.log("Player 2:");
+	console.log(handResult(p2Hand));
+	console.log("=====================");
+	console.log("Player 3:");
+	console.log(handResult(p3Hand));
+	console.log("=====================");
+	console.log("Player 4:");
+	console.log(handResult(p4Hand));
+	console.log("=====================");
+	console.log("tableCards: " + tableCards);
 }
 
 // Takes 2 cards out of the deck and adds them to the player's hand. Pass the array of the player's hole cards.
@@ -196,7 +207,7 @@ function handResult(thisHand) {
 	var hearts = 0, diamonds = 0, clubs = 0, spades = 0;
 
 	// Create an array of 7 cards, including the table cards and the player's hold cards
-	var allCards = tableCards;
+	var allCards = [tableCards[0], tableCards[1], tableCards[2], tableCards[3], tableCards[4];
 	allCards.push(thisHand[0], thisHand[1]);
 
 	// *******************************************************************************
