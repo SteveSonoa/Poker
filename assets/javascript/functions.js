@@ -196,9 +196,10 @@ function river() {
 	$("#card5").html('<img src="assets/images/' + tableCards[4].val + tableCards[4].suit + '.png" class ="img img-responsive">');
 }
 
-// This function will return an array with the [HAND CODE, (PARAM1), (PARAM2)]. The highest Hand Code wins.
-// Optional PARAM1 is the high card and exists in every result except the Royal Flush.
-// Optional PARAM2 is the pair in a Full House hand or the low pair in a 2 Pair hand.
+// This function will return an array with the [HAND CODE, (PARAM1), (PARAM2), (PARAM3), (PARAM4), (PARAM5)].
+// The highest first number in the array wins.
+// If the first numbers are the same, the highest 2nd number wins. If the same, 3rd, etc.
+// If all numbers in the length of the array are the same, it's a true tie.
 function handResult(thisHand) {
 	// This function 
 	var neededCards = 0;
