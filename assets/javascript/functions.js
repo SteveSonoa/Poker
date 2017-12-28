@@ -5,8 +5,8 @@ function createDeck(numDecks) {
 		var numDecks = 1;
 	}
 
-	// Start with an empty deck array
-	deck.splice(0, deck.length);
+	// Empty all arrays from the previous hand
+	emptyArrays();
 
 	// allow the option of multiple decks
 	for (var i = 0; i < numDecks; i++) {
@@ -16,6 +16,30 @@ function createDeck(numDecks) {
 		createCards("diamonds");
 		createCards("hearts");
 	}
+}
+
+function emptyArrays() {
+	// Empty the deck array
+	deck.splice(0, deck.length);
+
+	// Delete any table cards that might exist
+	tableCards.splice(0, tableCards.length);
+
+	// Empty player's hands
+	p1Hand.splice(0, p1Hand.length);
+	p2Hand.splice(0, p2Hand.length);
+	p3Hand.splice(0, p3Hand.length);
+	p4Hand.splice(0, p4Hand.length);
+	p5Hand.splice(0, p5Hand.length);
+	p6Hand.splice(0, p6Hand.length);
+
+	// Delete player's results from the prior hand
+	p1Result.splice(0, p1Result.length);
+	p2Result.splice(0, p2Result.length);
+	p3Result.splice(0, p3Result.length);
+	p4Result.splice(0, p4Result.length);
+	p5Result.splice(0, p5Result.length);
+	p6Result.splice(0, p6Result.length);
 }
 
 // Create a suit of card objects, values 2 - 14.
@@ -83,7 +107,8 @@ function dealCards() {
 
 	// TEST Check to see what the player's resulting hand will return.
 	console.log("Player 1:");
-	console.log(handResult(p1Hand));
+	p1Result = handResult(p1Hand);
+	console.log(p1Result);
 	console.log("=====================");
 	console.log("Player 2:");
 	console.log(handResult(p2Hand));
@@ -134,10 +159,11 @@ function drawOpponent(thisPlayer) {
 	$("#" + thisPlayer).html(
 		'<div class="container-float">'
 	+		'<div class="row">'
-	+			'<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">'
+	+			'<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" id="' + thisPlayer + 'Stats"></div>'
+	+			'<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-lg-push-3 col-md-push-3 col-sm-push-3 col-xs-push-3">'
 	+				'<img src="assets/images/' + thisHand[0].val + thisHand[0].suit + '.png" class ="img img-responsive">'
 	+			'</div>'
-	+			'<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">'
+	+			'<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 topCard">'
 	+				'<img src="assets/images/' + thisHand[1].val + thisHand[1].suit + '.png" class ="img img-responsive">'
 	+			'</div>'
 	+		'</div>'
@@ -153,8 +179,6 @@ function drawMyHand() {
 
 // Takes 3 cards out of the deck and adds them to the tableCards array. Draws the cards to the page.
 function flop() {
-	// Delete any table cards that might exist
-	tableCards.splice(0, tableCards.length);
 
 	// Get 3 cards
 	for (var i = 1; i <= 3; i++) {

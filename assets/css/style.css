@@ -1,3 +1,7 @@
 .row {
 	margin-top: 15px;
 }
+
+.topCard {
+	z-index: 10;
+}
