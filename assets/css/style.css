@@ -5,3 +5,15 @@
 .topCard {
 	z-index: 10;
 }
+
+.relativeDiv {
+	position: relative;
+}
+
+.cardResultDiv {
+	z-index: 20;
+	position: absolute;
+	right: 20%;
+	bottom: 0;
+	max-height: 80%;
+}
