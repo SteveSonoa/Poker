@@ -31,16 +31,12 @@ function emptyArrays() {
 	p2Hand.splice(0, p2Hand.length);
 	p3Hand.splice(0, p3Hand.length);
 	p4Hand.splice(0, p4Hand.length);
-	p5Hand.splice(0, p5Hand.length);
-	p6Hand.splice(0, p6Hand.length);
 
 	// Delete player's results from the prior hand
 	p1Result.splice(0, p1Result.length);
 	p2Result.splice(0, p2Result.length);
 	p3Result.splice(0, p3Result.length);
 	p4Result.splice(0, p4Result.length);
-	p5Result.splice(0, p5Result.length);
-	p6Result.splice(0, p6Result.length);
 }
 
 // Create a suit of card objects, values 2 - 14.
@@ -97,6 +93,9 @@ function dealCards() {
 	drawOpponent("p2");
 	drawOpponent("p3");
 	drawOpponent("p4");	
+
+	// TEST Attempt to write to MySQL
+	addHand_db();
 
 	// TEST Draw the table cards all at once.
 	flop();
