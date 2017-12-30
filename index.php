@@ -26,7 +26,7 @@
 	<script src="assets/javascript/handResult.js"></script>
 	<script src="assets/javascript/mySQLcalls.js"></script>
 
-	<title></title>
+	<title>JS Hold 'Em</title>
 </head>
 <body>
 	<div class="container">
