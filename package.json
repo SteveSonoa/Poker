@@ -1,0 +1,24 @@
+{
+  "name": "poker",
+  "version": "1.0.0",
+  "description": "JS Hold 'Em",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.16.2",
+    "mysql": "^2.15.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SteveSonoa/Poker.git"
+  },
+  "author": "Steve Marshall",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SteveSonoa/Poker/issues"
+  },
+  "homepage": "https://github.com/SteveSonoa/Poker#readme"
+}
