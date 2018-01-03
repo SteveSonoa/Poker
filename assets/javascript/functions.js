@@ -95,7 +95,7 @@ function dealCards() {
 	drawOpponent("p4");	
 
 	// TEST Attempt to write to MySQL
-	addHand_db();
+	// addHand_db();
 
 	// TEST Draw the table cards all at once.
 	flop();
