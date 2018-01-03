@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/SteveSonoa/Poker/issues"
   },
-  "homepage": "https://github.com/SteveSonoa/Poker#readme"
+  "homepage": "https://github.com/SteveSonoa/Poker#readme",
+  "engines": {
+    "node": "6.11.3"
+  }
 }
